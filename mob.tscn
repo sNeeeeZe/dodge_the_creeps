@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://comgfyc41x1dj"]
+
+[ext_resource type="Script" uid="uid://ba15b7lvhc7kg" path="res://mob.gd" id="1_1qmh0"]
+[ext_resource type="Texture2D" uid="uid://wyt6vvb5o8nn" path="res://dodge_the_creeps/dodge_the_creeps_2d_assets/art/enemyFlyingAlt_1.png" id="1_b3mxk"]
+[ext_resource type="Texture2D" uid="uid://b2rhagfbkjby" path="res://dodge_the_creeps/dodge_the_creeps_2d_assets/art/enemyFlyingAlt_2.png" id="2_1qmh0"]
+[ext_resource type="Texture2D" uid="uid://e3lkgst3h6m0" path="res://dodge_the_creeps/dodge_the_creeps_2d_assets/art/enemySwimming_1.png" id="3_gfurk"]
+[ext_resource type="Texture2D" uid="uid://mjb6hx6xr4dp" path="res://dodge_the_creeps/dodge_the_creeps_2d_assets/art/enemySwimming_2.png" id="4_ieysi"]
+[ext_resource type="Texture2D" uid="uid://vtaao4cwmisv" path="res://dodge_the_creeps/dodge_the_creeps_2d_assets/art/enemyWalking_1.png" id="5_cixyi"]
+[ext_resource type="Texture2D" uid="uid://ber8vapdqah8y" path="res://dodge_the_creeps/dodge_the_creeps_2d_assets/art/enemyWalking_2.png" id="6_7ulmv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pcqmr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_b3mxk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_1qmh0")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_gfurk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ieysi")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_cixyi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_7ulmv")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jbnni"]
+radius = 32.9864
+height = 91.9711
+
+[node name="Mob" type="RigidBody2D" groups=["mobs"]]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_1qmh0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.7, 0.7)
+sprite_frames = SubResource("SpriteFrames_pcqmr")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.58224
+shape = SubResource("CapsuleShape2D_jbnni")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(197.5, -5.72205e-06)
+scale = Vector2(4.95, 4.9)
+rect = Rect2(-50, -10, 20, 20)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
